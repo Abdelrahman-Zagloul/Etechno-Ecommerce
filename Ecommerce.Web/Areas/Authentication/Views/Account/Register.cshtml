@@ -1,0 +1,160 @@
+﻿@model RegisterViewModel
+@{
+    bool isAdmin = User.IsInRole(SD.AdminRole);
+    ViewData["Title"] = isAdmin ? "Add Account" : "Register";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow rounded-4 border-0">
+                <div class="card-header bg-primary text-white text-center rounded-top-4">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Register" asp-controller="Account" asp-area="Authentication" method="post" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="UserName" class="form-label fw-semibold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-person-fill"></i>
+                                    </span>
+                                    <input asp-for="UserName" class="form-control" placeholder="Enter username" required autocomplete="username" aria-label="Username" />
+                                </div>
+                                <span asp-validation-for="UserName" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label fw-semibold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-envelope-at"></i>
+                                    </span>
+                                    <input asp-for="Email" class="form-control" type="email" placeholder="Enter email" required autocomplete="email" aria-label="Email" />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Password" class="form-label fw-semibold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                    <input asp-for="Password" class="form-control" type="password" placeholder="Enter your password" required minlength="6" autocomplete="new-password" aria-label="Password" id="passwordInput" />
+                                    <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('passwordInput','togglePasswordIcon')" aria-label="Toggle password visibility">
+                                        <i class="bi bi-eye" id="togglePasswordIcon"></i>
+                                    </button>
+                                </div>
+                                <span asp-validation-for="Password" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="ConfirmPassword" class="form-label fw-semibold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-shield-lock-fill"></i>
+                                    </span>
+                                    <input asp-for="ConfirmPassword" class="form-control" type="password"
+                                           placeholder="Confirm password" required autocomplete="new-password" aria-label="Confirm Password" id="confirmPasswordInput" />
+                                    <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('confirmPasswordInput', 'toggleConfirmIcon')" aria-label="Toggle password visibility">
+                                        <i class="bi bi-eye" id="toggleConfirmIcon"></i>
+                                    </button>
+                                </div>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </span>
+                                    <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number" type="tel" pattern="[0-9]{11}" required aria-label="Phone Number" />
+                                </div>
+                                <span asp-validation-for="PhoneNumber" class="text-danger small d-block mt-1"></span>
+                            </div>
+
+                            @if (isAdmin)
+                            {
+                                <div class="col-md-6">
+                                    <label asp-for="Role" class="form-label fw-semibold"></label>
+                                    <select asp-for="Role" asp-items="@Model.RolesList" class="form-select" required>
+                                        <option disabled selected>-- Select Role --</option>
+                                    </select>
+                                    <span asp-validation-for="Role" class="text-danger small d-block mt-1"></span>
+                                </div>
+                            }
+                        </div>
+
+                        @if (!isAdmin)
+                        {
+                            <div class="text-center my-4">
+                                <span class="text-muted">Or sign in with</span>
+                            </div>
+
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <a asp-action="ExternalLogin" asp-controller="Account" asp-route-provider="Google"
+                                       class="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-2" title="Sign in with Google">
+                                        <i class="bi bi-google fs-5"></i>
+                                        <span>Google</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a asp-action="ExternalLogin" asp-controller="Account" asp-route-provider="GitHub"
+                                       class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2" title="Sign in with GitHub">
+                                        <i class="bi bi-github fs-5"></i>
+                                        <span>GitHub</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a asp-action="ExternalLogin" asp-controller="Account" asp-route-provider="Facebook"
+                                       class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center gap-2" title="Sign in with Facebook">
+                                        <i class="bi bi-facebook fs-5"></i>
+                                        <span>Facebook</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a asp-action="ExternalLogin" asp-controller="Account" asp-route-provider="Microsoft"
+                                       class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2" title="Sign in with Microsoft">
+                                        <img src="https://img.icons8.com/color/24/000000/microsoft.png" />
+                                        <span>Microsoft</span>
+                                    </a>
+                                </div>
+                                <div class="col-12">
+                                    <a asp-action="ExternalLogin" asp-controller="Account" asp-route-provider="LinkedIn"
+                                       class="btn btn-outline-info w-100 d-flex align-items-center justify-content-center gap-2" title="Sign in with LinkedIn">
+                                        <img src="https://img.icons8.com/color/24/000000/linkedin.png" />
+                                        <span>LinkedIn</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary px-4 py-2">
+                                @ViewData["Title"]
+                            </button>
+                        </div>
+                        @if (!isAdmin)
+                        {
+                            <div class="text-center mt-3">
+                                <span class="text-muted">Already have an account?</span>
+                            <a asp-action="Login" asp-controller="Account" asp-area="Authentication" class="text-decoration-none fw-bold ms-1">Login</a>
+                        </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/showpassword.js" asp-append-version="true"></script>
+}

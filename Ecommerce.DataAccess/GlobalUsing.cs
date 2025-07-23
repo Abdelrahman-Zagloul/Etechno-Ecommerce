@@ -1,0 +1,9 @@
+﻿global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore;
+global using Ecommerce.Models.Models;
+global using Ecommerce.DataAccess.Configuration;
+global using Ecommerce.DataAccess.Repository.Interfaces;
+global using System.Linq.Expressions;
+global using Ecommerce.DataAccess.Data;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.AspNetCore.Identity;

@@ -1,0 +1,144 @@
+﻿@model UpdateProductViewModel
+
+@{
+    ViewData["Title"] = "Update Product";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center ">
+        <div class="col-lg-10">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-warning text-dark rounded-top-4 d-flex align-items-center">
+                    <i class="bi bi-pencil-square me-2"></i>
+                    <h5 class="mb-0">Update Product</h5>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="Update" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row">
+                           
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label asp-for="Name" class="form-label fw-semibold">Product Name</label>
+                                    <input asp-for="Name" class="form-control shadow-sm" />
+                                    <span asp-validation-for="Name" class="text-danger small"></span>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="ISBN" class="form-label fw-semibold">ISBN</label>
+                                        <input asp-for="ISBN" class="form-control shadow-sm" />
+                                        <span asp-validation-for="ISBN" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="CategoryId" class="form-label fw-semibold">Category</label>
+                                        <select asp-for="CategoryId" class="form-select shadow-sm" asp-items="@Model.CategoryList">
+                                            <option disabled>-- Select Category --</option>
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Author" class="form-label fw-semibold">Author</label>
+                                        <input asp-for="Author" class="form-control shadow-sm" />
+                                        <span asp-validation-for="Author" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label asp-for="ListPrice" class="form-label fw-semibold">List Price</label>
+                                        <input asp-for="ListPrice" class="form-control shadow-sm" />
+                                        <span asp-validation-for="ListPrice" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label asp-for="Price50" class="form-label fw-semibold">Price (1 - 50)</label>
+                                        <input asp-for="Price50" class="form-control shadow-sm" />
+                                        <span asp-validation-for="Price50" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label asp-for="Price100" class="form-label fw-semibold">Price (50+)</label>
+                                        <input asp-for="Price100" class="form-control shadow-sm" />
+                                        <span asp-validation-for="Price100" class="text-danger small"></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Description" class="form-label fw-semibold">Description</label>
+                                    <textarea asp-for="Description" class="form-control shadow-sm" rows="5"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger small"></span>
+                                </div>
+                                
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Current Image</label>
+                                    <img src="/images/products/@Model.ImageUrl" class="img-thumbnail rounded mb-3" style="max-height: 250px; width: 100%; object-fit: contain;" alt="Product Image" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="ImageFile" class="form-label fw-semibold">Change Image</label>
+                                    <input asp-for="ImageFile" type="file" class="form-control shadow-sm" accept="image/*" onchange="previewImage(event)" />
+                                    <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                                </div>
+
+                                <div class="text-center">
+                                    <img id="imagePreview" src="#" alt="Image Preview" class="img-thumbnail rounded d-none" style="max-height: 200px; width: 100%; object-fit: contain;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-hover">
+                                <i class="bi bi-arrow-left-circle"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-warning text-white btn-hover">
+                                <i class="bi bi-check-circle"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.tiny.cloud/1/5mfkg3cyl9k304s7w7bc2y2abhuqjh117wujfmjde1czwx49/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> 
+    <script src="~/js/addproduct.js" asp-append-version="true"></script>
+}
+
+<style>
+    .btn-hover {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-warning.btn-hover:hover {
+        background-color: #e0a800;
+        box-shadow: 0 4px 10px rgba(224, 168, 0, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-secondary.btn-hover:hover {
+        background-color: #6c757d;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+        border-color: #ffc107;
+    }
+
+    #imagePreview {
+        object-fit: contain;
+    }
+</style>

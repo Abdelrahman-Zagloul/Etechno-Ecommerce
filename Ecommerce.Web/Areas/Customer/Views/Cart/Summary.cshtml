@@ -1,0 +1,129 @@
+﻿@model OrderHeaderViewModel
+
+<form method="post" asp-action="MakeOrder">
+    <br />
+    <div class="container mb-5">
+        <div class="card shadow border-0 rounded-4">
+            <div class="card-header bg-gradient text-light py-4 rounded-top-4"
+                 style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);">
+                <div class="row align-items-center px-3">
+                    <div class="col-md-6">
+                        <h5 class="text-black mb-1">
+                            <i class="bi bi-box-seam me-2"></i> Make Order
+                        </h5>
+                        <small class="text-black-50" >
+                            Complete your shipping information to place your order
+                        </small>
+                    </div>
+                    <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                        <div class="d-inline-block bg-light rounded px-3 py-2 shadow-sm">
+                            <i class="bi bi-calendar-check text-primary me-1"></i>
+                            <span class="text-dark fw-semibold" style="font-size: 14px;">
+                                Estimated Delivery: <span class="text-success">7 Days After Shipping</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="container rounded p-2">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 pb-4">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-info">Shipping Details:</span>
+                            </h4>
+
+                            <div class="row my-1">
+                                <div class="col-3"><label asp-for="Name"></label></div>
+                                <div class="col-9">
+                                    <input asp-for="Name" class="form-control" />
+                                    <span class="text-danger" asp-validation-for="Name"></span>
+                                </div>
+                            </div>
+
+                            <div class="row my-1">
+                                <div class="col-3"><label asp-for="PhoneNumber"></label></div>
+                                <div class="col-9">
+                                    <input asp-for="PhoneNumber" class="form-control" />
+                                    <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                                </div>
+                            </div>
+
+                            <div class="row my-1">
+                                <div class="col-3"><label asp-for="StreetAddress"></label></div>
+                                <div class="col-9">
+                                    <input asp-for="StreetAddress" class="form-control" />
+                                    <span class="text-danger" asp-validation-for="StreetAddress"></span>
+                                </div>
+                            </div>
+
+                            <div class="row my-1">
+                                <div class="col-3"><label asp-for="City"></label></div>
+                                <div class="col-9">
+                                    <input asp-for="City" class="form-control" />
+                                    <span class="text-danger" asp-validation-for="City"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-5 offset-lg-1">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-info">Order Summary:</span>
+                            </h4>
+                            <p class="mb-3" style="color:maroon; font-size:14px;">
+                                Estimate Arrival Date: @DateTime.Now.ToString("dd MMM yyyy") - @DateTime.Now.AddDays(7).ToString("dd MMM yyyy")
+                            </p>
+                            <ul class="list-group mb-3">
+                                @foreach (var cart in Model.ShoppingCarts)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="my-0">@cart.Product?.Name</h6>
+                                            <small class="text-muted">Quantity: @cart.Count</small>
+                                        </div>
+                                        <span class="text-muted">$@(cart.Price* cart.Count)</span>
+                                    </li>
+                                }
+
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <small class="text-info fw-semibold">Total (USD)</small>
+                                    <strong class="text-info">$@Model.TotalPrice</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer bg-light rounded-bottom-4">
+                <div class="row">
+                    <div class="col-md-4 col-12 mb-2">
+                        <a asp-action="Index" asp-controller="Cart"
+                           class="btn btn-outline-secondary w-100 shadow-sm">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Back to Cart
+                        </a>
+                    </div>
+                    <div class="col-md-4 offset-md-4 col-12">
+                        @if (!Model.ShoppingCarts.Any())
+                        {
+                            <button disabled class="btn btn-secondary w-100">
+                                <i class="bi bi-credit-card me-1"></i> Pay Now
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-success w-100 shadow-sm">
+                                <i class="bi bi-credit-card me-1"></i> Pay Now
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

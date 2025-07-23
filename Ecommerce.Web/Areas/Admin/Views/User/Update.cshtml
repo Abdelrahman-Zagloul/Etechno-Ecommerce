@@ -1,0 +1,87 @@
+﻿@model UpdateAccountViewModel
+
+@{
+    ViewData["Title"] = "Update Account";
+}
+
+<style>
+    .btn-hover {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-warning.btn-hover:hover {
+        background-color: #d39e00;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(222, 170, 12, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-secondary.btn-hover:hover {
+        background-color: #6c757d;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+        border-color: #ffcd39;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-sm border-0 rounded-4 ">
+                <div class="card-header bg-warning text-dark rounded-top-4 d-flex justify-content-center align-items-center gap-2">
+                    <i class="bi bi-person-gear fs-4"></i>
+                    <h5 class="mb-0">Update User Role</h5>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="Update" asp-controller="User" asp-area="Admin" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Id" class="form-label fw-semibold"></label>
+                            <input asp-for="Id" class="form-control shadow-sm" disabled />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="UserName" class="form-label fw-semibold"></label>
+                            <input asp-for="UserName" class="form-control shadow-sm" disabled />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                            <input asp-for="Email" class="form-control shadow-sm" disabled />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Role" class="form-label fw-semibold">Role</label>
+                            <select asp-for="Role" asp-items="@Model.RoleList" class="form-select shadow-sm">
+                                <option disabled selected>Select Role</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-hover">
+                                <i class="bi bi-arrow-left-circle me-1"></i> Back to List
+                            </a>
+                            <button type="submit"  class="btn btn-warning text-white btn-hover">
+                                <i class="bi bi-check2-square me-1"></i> Update
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

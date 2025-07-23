@@ -1,0 +1,90 @@
+﻿@using System.Security.Claims
+@{
+    bool isAdmin = User.IsInRole(SD.AdminRole);
+    int cartNumber = Context.Session.GetInt32(SD.CardNumber) ?? 0;
+    string userName = User.Identity.Name;
+    bool isAuthenticated = User.Identity.IsAuthenticated;
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-primary" asp-area="" asp-controller="Home" asp-action="Index">Ecommerce</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                @if (isAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a>
+                    </li>
+                    @if (isAdmin)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Dashboard">Dashboard</a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                            <i class="bi bi-cart-fill"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                @cartNumber
+                                <span class="visually-hidden">cart items</span>
+                            </span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                @if (isAuthenticated)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-lg-inline text-dark me-2">@userName</span>
+                            <img src="/img/undraw_profile.svg" class="rounded-circle" width="32" height="32" alt="User Profile" />
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Profile">
+                                    <i class="fas fa-user me-2 text-gray-400"></i>Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword">
+                                    <i class="fas fa-cogs me-2 text-gray-400"></i>Change Password
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <a asp-area="Authentication" asp-controller="Account" asp-action="Logout" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt me-2 text-gray-400"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary btn-sm" asp-area="Authentication" asp-controller="Account" asp-action="Login">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary btn-sm" asp-area="Authentication" asp-controller="Account" asp-action="Register">
+                            <i class="bi bi-person-plus-fill"></i> Register
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

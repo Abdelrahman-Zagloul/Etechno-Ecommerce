@@ -1,0 +1,134 @@
+﻿@model AddProductViewModel
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+                <div class="card-header bg-success text-white rounded-top-4 d-flex align-items-center">
+                    <i class="bi bi-plus-circle me-2 fs-5"></i>
+                    <h4 class="mb-0">Add New Product</h4>
+                </div>
+
+                <div class="card-body mt-4">
+                    <form asp-action="Add" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label fw-semibold">Product Name</label>
+                                <input asp-for="Name" class="form-control shadow-sm" placeholder="e.g. Clean Code Book" />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Author" class="form-label fw-semibold">Author</label>
+                                <input asp-for="Author" class="form-control shadow-sm" placeholder="e.g. Robert C. Martin" />
+                                <span asp-validation-for="Author" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="ISBN" class="form-label fw-semibold">ISBN</label>
+                                <input asp-for="ISBN" class="form-control shadow-sm" placeholder="e.g. 978-1234567890" />
+                                <span asp-validation-for="ISBN" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="CategoryId" class="form-label fw-semibold">Category</label>
+                                <select asp-for="CategoryId" class="form-select shadow-sm" asp-items="@Model.CategoryList">
+                                    <option disabled selected>-- Select Category --</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="ListPrice" class="form-label fw-semibold">List Price</label>
+                                <input asp-for="ListPrice" class="form-control shadow-sm" />
+                                <span asp-validation-for="ListPrice" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="Price50" class="form-label fw-semibold">Price (1-50)</label>
+                                <input asp-for="Price50" class="form-control shadow-sm" />
+                                <span asp-validation-for="Price50" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="Price100" class="form-label fw-semibold">Price (50+)</label>
+                                <input asp-for="Price100" class="form-control shadow-sm" />
+                                <span asp-validation-for="Price100" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Description" class="form-label fw-semibold">Description</label>
+                                <textarea asp-for="Description" class="form-control shadow-sm" rows="5" placeholder="Enter product description..."></textarea>
+                                <span asp-validation-for="Description" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="ImageFile" class="form-label fw-semibold">Product Image</label>
+                                <input asp-for="ImageFile" type="file" class="form-control shadow-sm" accept="image/*" onchange="previewImage(event)" />
+                                <span asp-validation-for="ImageFile" class="text-danger small"></span>
+
+                                <div class="mt-3 text-center">
+                                    <img id="imagePreview" src="#" alt="Image Preview" class="img-thumbnail rounded d-none"
+                                         style="max-height: 300px; width: auto; object-fit: contain;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-hover">
+                                <i class="bi bi-arrow-left-circle"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-success btn-hover">
+                                <i class="bi bi-check-circle"></i> Create
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/5mfkg3cyl9k304s7w7bc2y2abhuqjh117wujfmjde1czwx49/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="~/js/addProduct.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    .btn-hover {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-success.btn-hover:hover {
+        background-color: #157347;
+        box-shadow: 0 4px 12px rgba(25, 135, 84, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-secondary.btn-hover:hover {
+        background-color: #6c757d;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+        border-color: #198754;
+    }
+
+    #imagePreview {
+        object-fit: contain;
+    }
+</style>
+

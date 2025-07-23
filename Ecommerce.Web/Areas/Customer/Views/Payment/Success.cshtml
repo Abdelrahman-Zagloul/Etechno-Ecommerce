@@ -1,0 +1,40 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Payment Success";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-success rounded-4">
+                <div class="card-header bg-success text-white text-center rounded-top-4">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="bi bi-check-circle-fill me-2"></i>Thank You!
+                    </h3>
+                </div>
+                <div class="card-body text-center p-5">
+                    <h4 class="text-success mb-3">Your payment was successful 🎉</h4>
+                    <p class="lead">We have received your payment and your order is now being processed.</p>
+
+                    <p class="mt-4 fs-5">
+                        Your Order ID is:
+                        <span class="badge bg-success fs-5 px-4 py-2 rounded-pill shadow-sm">
+                            @Model
+                        </span>
+                    </p>
+
+                    <div class="mt-5 d-flex justify-content-center gap-4 flex-wrap">
+                        <a asp-action="Index" asp-controller="Home" asp-area="Customer"
+                           class="btn btn-outline-primary px-4 py-2 rounded-pill">
+                            <i class="bi bi-shop me-2"></i>Continue Shopping
+                        </a>
+                        <a asp-action="Details" asp-controller="Order" asp-area="Admin" asp-route-Id="@Model"
+                           class="btn btn-outline-success px-4 py-2 rounded-pill">
+                            <i class="bi bi-card-list me-2"></i>View Your Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

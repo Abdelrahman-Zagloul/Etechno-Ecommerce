@@ -1,0 +1,110 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container my-5 ">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-lg border-0 rounded-4 animate__animated animate__fadeIn">
+                <div class="card-header bg-primary bg-gradient text-white text-center rounded-top-4 py-4">
+                    <h3 class="mb-1 fw-bold">Welcome Back</h3>
+                    <small class="text-light">Please sign in to continue</small>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Login" asp-controller="Account" asp-area="Authentication" method="post" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input asp-for="Email" class="form-control" placeholder="Enter your email" autocomplete="email" />
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-lock-fill"></i>
+                                </span>
+                                <input asp-for="Password" class="form-control" type="password" placeholder="Enter your password" required minlength="6" autocomplete="new-password" aria-label="Password" id="passwordInput" />
+                                <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('passwordInput','togglePasswordIcon')" aria-label="Toggle password visibility">
+                                    <i class="bi bi-eye" id="togglePasswordIcon"></i>
+                                </button>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" asp-for="RememberMe" />
+                                <label class="form-check-label" asp-for="RememberMe">Remember Me</label>
+                            </div>
+                            <a asp-action="ForgotPassword" class="text-decoration-none small">Forgot Password?</a>
+                        </div>
+
+                        <div class="d-grid mb-4">
+                            <button type="submit" class="btn btn-success btn-lg">Login</button>
+                        </div>
+
+                        <div class="text-center my-3">
+                            <span class="text-muted">Or sign in with</span>
+                        </div>
+
+                        <div class="row g-2 mb-4">
+                            <div class="col-12 col-md-6">
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-area="Authentication" asp-route-provider="Google" asp-route-returnUrl="@ViewData["ReturnUrl"]"
+                                   class="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-google fs-5"></i>
+                                    <span>Google</span>
+                                </a>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-area="Authentication" asp-route-provider="GitHub" asp-route-returnUrl="@ViewData["ReturnUrl"]"
+                                   class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-github fs-5"></i>
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-area="Authentication" asp-route-provider="Facebook" asp-route-returnUrl="@ViewData["ReturnUrl"]"
+                                   class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-facebook fs-5"></i>
+                                    <span>Facebook</span>
+                                </a>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-area="Authentication" asp-route-provider="Microsoft" asp-route-returnUrl="@ViewData["ReturnUrl"]"
+                                   class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center gap-2">
+                                    <img src="https://img.icons8.com/color/24/000000/microsoft.png" alt="Microsoft" />
+                                    <span>Microsoft</span>
+                                </a>
+                            </div>
+                            <div class="col-12">
+                                <a asp-action="ExternalLogin" asp-controller="Account" asp-area="Authentication" asp-route-provider="LinkedIn" asp-route-returnUrl="@ViewData["ReturnUrl"]"
+                                   class="btn btn-outline-info w-100 d-flex align-items-center justify-content-center gap-2">
+                                    <img src="https://img.icons8.com/color/24/000000/linkedin.png" alt="LinkedIn" />
+                                    <span>LinkedIn</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="text-muted">Don't have an account?</span>
+                            <a asp-action="Register" asp-controller="Account" asp-area="Authentication" class="text-decoration-none fw-bold ms-1">Register</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="~/js/showpassword.js" asp-append-version="true"></script>
+}

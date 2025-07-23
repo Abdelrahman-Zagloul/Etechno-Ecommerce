@@ -1,0 +1,59 @@
+﻿@model bool
+@{
+    ViewData["Title"] = "Order Cancelled";
+
+    var isRefunded = Model;
+    var headerBg = isRefunded ? "bg-success bg-gradient" : "bg-danger bg-gradient";
+    var icon = isRefunded ? "bi-check-circle-fill" : "bi-x-octagon-fill";
+    var headerText = isRefunded ? "Order Cancelled & Refunded" : "Order Cancelled";
+    var messageColor = isRefunded ? "text-success" : "text-danger";
+}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header @headerBg text-white text-center rounded-top">
+                    <h3 class="fw-bold mb-0">
+                        <i class="bi @icon me-2"></i> @headerText
+                    </h3>
+                </div>
+
+                <div class="card-body text-center py-5">
+                    <h4 class="text-dark mb-4">
+                        <i class="bi bi-info-circle-fill @messageColor me-2"></i>
+                        Your order has been <strong class="@messageColor">cancelled</strong>
+                    </h4>
+
+                    @if (isRefunded)
+                    {
+                        <p class="text-secondary mb-2 fs-5">
+                            The full amount has been refunded to your original payment method.
+                        </p>
+                        <p class="text-muted mb-4">
+                            Refunds usually take <strong>5–7 business days</strong> to appear in your account.
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-secondary mb-2 fs-5">
+                            Since the payment wasn't completed, there was no need for a refund.
+                        </p>
+                        <p class="text-muted mb-4">
+                            You can still place a new order anytime.
+                        </p>
+                    }
+
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a asp-action="Index" asp-controller="Home" asp-area="Customer" class="btn btn-outline-dark px-4 rounded-pill">
+                            <i class="bi bi-house-door-fill me-1"></i> Back to Home
+                        </a>
+
+                        <a asp-action="Index" asp-controller="Order" asp-area="Admin" class="btn btn-outline-primary px-4 rounded-pill">
+                            <i class="bi bi-box-seam me-1"></i> View Your Orders
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

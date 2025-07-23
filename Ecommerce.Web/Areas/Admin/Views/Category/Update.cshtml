@@ -1,0 +1,75 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Update Category";
+}
+
+<style>
+    .btn-hover {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-warning.btn-hover:hover {
+        background-color: #d39e00;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(222, 170, 12, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-secondary.btn-hover:hover {
+        background-color: #6c757d;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+        border-color: #ffcd39;
+    }
+</style>
+
+<div class="container mt-5" style="height:72vh">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-warning text-dark rounded-top-4 d-flex align-items-center">
+                    <i class="bi bi-pencil-square fs-5 me-2"></i>
+                    <h5 class="mb-0">Update Category</h5>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="Update">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input asp-for="Id" type="hidden" />
+
+                        <div class="mb-3">
+                            <label asp-for="CategoryName" class="form-label fw-semibold">Category Name</label>
+                            <input asp-for="CategoryName" class="form-control shadow-sm" placeholder="Enter category name" />
+                            <span asp-validation-for="CategoryName" class="text-danger small"></span>
+                        </div>
+                      
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-hover">
+                                <i class="bi bi-arrow-left-circle me-1"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-warning text-white btn-hover">
+                                <i class="bi bi-check2-square me-1"></i> Update
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

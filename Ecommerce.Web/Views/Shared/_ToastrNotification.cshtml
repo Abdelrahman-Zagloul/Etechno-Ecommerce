@@ -1,0 +1,65 @@
+﻿<!-- Using   Toastr -->
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@if (TempData["success1"] != null)
+{
+
+    <script type="text/javascript">
+        toastr.success('@TempData["success1"]');
+    </script>
+}
+@if (TempData["success"] != null)
+{
+    <script type="text/javascript">
+        toastr.success('@TempData["success"]');
+    </script>
+}
+
+@if (TempData["error"] != null)
+{
+    <script type="text/javascript">
+        toastr.error('@TempData["error"]');
+    </script>
+}
+@if (TempData["info"] != null)
+{
+    <script type="text/javascript">
+        toastr.info('@TempData["info"]');
+    </script>
+}
+
+@if (TempData["warning"] != null)
+{
+    <script type="text/javascript">
+        toastr.warning('@TempData["warning"]');
+    </script>
+}
+
+
+<!-- Using   SweetAlert2 -->
+@* @if (TempData["success"] != null)
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'تم بنجاح!',
+            text: 'عملية الحفظ تمت بنجاح.',
+        });
+    </script>
+} *@
+
+
+
+<!-- Using  Notyf -->
+@*  @if (TempData["success"] != null)
+{
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+<script>
+    const notyf = new Notyf();
+    notyf.success('تمت العملية بنجاح!');
+    notyf.error('حدث خطأ أثناء الحفظ!');
+</script>
+
+}  *@

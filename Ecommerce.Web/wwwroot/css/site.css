@@ -1,0 +1,64 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+footer {
+    margin-top: auto !important;
+}
+
+#myTable th,
+#myTable td {
+    border-right: 1px solid #dee2e6;
+}
+
+    #myTable th:last-child,
+    #myTable td:last-child {
+        border-right: none;
+    }
+
+#myTable td {
+    text-align: left;
+}
+
+#myTable th {
+    text-align: center;
+}
+.toast-success {
+    font-weight: bold;
+    background-color: #02bf00 !important; 
+    color: #ffffff !important; 
+}
+
+.toast-error {
+    font-weight: bold;
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+.toast-info {
+    font-weight: bold;
+    background-color: #17a2b8 !important;
+    color: #ffffff !important;
+}
+
+.toast-warning {
+    font-weight: bold;
+    background-color: #ffc107 !important; 
+    color: #000000 !important;
+}
+

@@ -1,0 +1,123 @@
+﻿@model ProfileViewModel
+
+@{
+    ViewData["Title"] = "User Profile";
+    bool isAdmin = Model.Role == SD.AdminRole;
+    bool isMasterAdmin = Model.Email == "abdelrahman.zagloul.dev@gmail.com";
+
+    var roleClass = isMasterAdmin ? "role-master-admin" :
+                    isAdmin ? "role-admin" : "role-user";
+
+    var roleIcon = isMasterAdmin ? "bi-stars" :
+                   isAdmin ? "bi-shield-lock" : "bi-person";
+}
+
+<style>
+    .badge-role {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.75rem;
+        border-radius: 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .role-admin {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .role-user {
+        background-color: #0dcaf0;
+        color: #fff;
+    }
+
+    .role-master-admin {
+        background-color: #000;
+        color: #fff;
+        font-weight: bold;
+        border: 1px solid #fff;
+    }
+
+    .profile-avatar {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #dee2e6;
+    }
+
+    .profile-card {
+        box-shadow: 0 0 10px rgba(0,0,0,0.07);
+        border-radius: 1rem;
+    }
+
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        font-weight: 600;
+    }
+</style>
+
+<div class="profile-container mt-5 mb-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card profile-card mb-4">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="bi bi-person-lines-fill fs-4 me-2 text-primary"></i>
+                        <h5 class="mb-0">User Profile</h5>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center mb-4 mb-md-0">
+                                <img src="/images/Default.webp" alt="User Profile Avatar" class="profile-avatar mb-3" />
+                                <h5 class="fw-bold mb-1">
+                                    <i class="bi bi-person-fill me-1 text-secondary"></i> @Model.UserName
+                                </h5>
+                                <span class="badge badge-role @roleClass">
+                                    <i class="bi @roleIcon me-1"></i>
+                                    @(isMasterAdmin ? "Master Admin" : Model.Role)
+                                </span>
+                            </div>
+
+                            <div class="col-md-8">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-4 text-muted">Email</dt>
+                                    <dd class="col-sm-8"><i class="bi bi-envelope me-1 text-info"></i> @Model.Email</dd>
+
+                                    <dt class="col-sm-4 text-muted">Phone</dt>
+                                    <dd class="col-sm-8"><i class="bi bi-telephone me-1 text-info"></i> @Model.PhoneNumber</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-between gap-3">
+                    @if (isAdmin)
+                    {
+                        <a asp-action="Dashboard" asp-controller="User" asp-area="Admin" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Back To Dashboard
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="Index" asp-controller="Home" asp-area="Customer" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Back To Home
+                        </a>
+                    }
+                    <a asp-action="ChangePassword" asp-controller="User" asp-area="Admin" class="text-black btn btn-outline-warning">
+                        <i class="bi bi-key me-1"></i> Change Password
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

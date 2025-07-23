@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h2 class="fw-bold text-primary">
+                <i class="bi bi-people-fill me-2"></i> User Management
+            </h2>
+            <hr class="w-25 mx-auto border-primary">
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex align-items-center">
+            <a asp-area="Admin" asp-controller="User" asp-action="Dashboard" class="btn btn-outline-secondary shadow-sm">
+                <i class="bi bi-arrow-left-circle me-1"></i> Back To Dashboard
+            </a>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-area="Authentication" asp-controller="Account" asp-action="Register" class="btn btn-success shadow-sm">
+                <i class="bi bi-person-plus-fill me-1"></i> Add New User
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table id="myTable" class="table table-hover table-striped align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Role</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/user.js" asp-append-version="true"></script>
+}

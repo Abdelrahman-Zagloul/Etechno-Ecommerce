@@ -1,0 +1,10 @@
+# مجلدات البناء
+bin/
+obj/
+
+# ملفات البيئة
+.env
+
+# إعدادات التطبيق
+appsettings.Development.json
+appsettings.json

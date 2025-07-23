@@ -1,0 +1,66 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<style>
+    .fade-in {
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .error-card {
+        max-width: 700px;
+        margin: auto;
+    }
+
+    .error-header {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+    }
+
+    .error-footer {
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 75vh;">
+    <div class="card shadow-lg border-danger error-card fade-in">
+        <div class="card-header text-white text-center error-header">
+            <h1><i class="bi bi-exclamation-triangle-fill me-2"></i>Oops! Something went wrong.</h1>
+        </div>
+        <div class="card-body text-center">
+            <h4 class="text-danger mb-4">An error occurred while processing your request.</h4>
+
+            
+
+            <p class="text-secondary">
+                Please try again later, or contact support if the problem persists.
+            </p>
+
+            <a href="/" class="btn btn-outline-primary mt-3">
+                <i class="bi bi-house-door-fill me-1"></i> Return to Home
+            </a>
+        </div>
+
+        <div class="card-footer bg-light text-muted text-center error-footer">
+            <p>
+                For developers: Enable the <strong>Development</strong> environment to see detailed error info.<br />
+                Set <code>ASPNETCORE_ENVIRONMENT</code> to <strong>Development</strong> and restart the app.
+            </p>
+        </div>
+    </div>
+</div>

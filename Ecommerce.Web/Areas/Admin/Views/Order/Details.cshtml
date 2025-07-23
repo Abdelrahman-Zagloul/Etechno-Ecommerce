@@ -1,0 +1,251 @@
+﻿@model OrderViewModel
+@{
+    bool isAdmin = User.IsInRole(SD.AdminRole);
+    bool isCustomer = User.IsInRole(SD.CustomerRole);
+}
+<form method="post">
+    <br />
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-dark text-light ml-0">
+                <div class="container row">
+                    <div class="col-12 d-none d-md-block col-md-6 pb-1">
+                        <i class="fas fa-shopping-cart"></i> &nbsp; Order Summary
+                    </div>
+                    <div class="col-12 col-md-4 offset-md-2 text-right">
+                        <a asp-action="Index" class="btn btn-outline-info form-control btn-sm">Back to Orders</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="container rounded p-2">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 pb-4">
+                            <div class="row">
+                                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary">PickUp Details:</span>
+                                </h4>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Name</div>
+                                <div class="col-9">
+                                    @if (isCustomer)
+                                    {
+                                        <input asp-for="Header.Name" class="form-control" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Header.Name" class="form-control" />
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Phone</div>
+                                <div class="col-9">
+                                    @if (isCustomer)
+                                    {
+                                        <input asp-for="Header.PhoneNumber" class="form-control" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Header.PhoneNumber" class="form-control" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Address</div>
+                                <div class="col-9">
+                                    @if (isCustomer)
+                                    {
+                                        <input asp-for="Header.StreetAddress" class="form-control" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Header.StreetAddress" class="form-control" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">City</div>
+                                <div class="col-9">
+                                    @if (isCustomer)
+                                    {
+                                        <input asp-for="Header.City" class="form-control" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Header.City" class="form-control" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Email</div>
+                                <div class="col-9">
+                                    <input asp-for="Email" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Carrier</div>
+                                <div class="col-9">
+                                    @if (isCustomer)
+                                    {
+                                        <input asp-for="Header.Carrier" class="form-control" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Header.Carrier" class="form-control" />
+                                        <span asp-validation-for="Header.Carrier" class="text-danger"></span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Tracking</div>
+                                <div class="col-9">
+                                    <input asp-for="Header.TrackingNumber" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Order Date</div>
+                                <div class="col-9">
+                                    <input asp-for="Header.OrderDate" readonly class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Shipping Date</div>
+                                <div class="col-9">
+                                    <input asp-for="Header.ShippingDate" readonly class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="row my-1">
+                                <div class="col-3">Session ID</div>
+                                <div class="col-9">
+                                    <input asp-for="Header.SessionId" readonly class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Payment Intent ID</div>
+                                <div class="col-9">
+                                    <input asp-for="Header.PaymentIntentId" readonly class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Payment Date</div>
+                                <div class="col-9">
+                                    <input asp-for="Header.PaymentDate" readonly class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Payment Status</div>
+                                <div class="col-9">
+                                    <input asp-for="Header.PaymentStatus" readonly class="form-control" />
+                                </div>
+                            </div>
+                            @if (isAdmin)
+                            {
+                                <button asp-action="UpdateOrderDetails" asp-route-orderHeaderId="@Model.Header.Id" type="submit" class="btn btn-warning form-control my-1">Update Order Details</button>
+                            }
+                        </div>
+
+                        <div class="col-12 col-lg-5 offset-lg-1">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-primary">Order Summary</span>
+                            </h4>
+                            <label class="btn btn-outline-primary form-control my-2">Order Status - @Model.Header.OrderStatus</label>
+
+                            <ul class="list-group mb-3">
+                                @foreach (var item in Model.Details)
+                                {
+
+                                    <li class="list-group-item d-flex justify-content-between p-2">
+                                        <div class="row container">
+                                            <div class="col-8">
+                                                <h6 class="my-0 text-primary">@item.Product.Name</h6>
+                                                <small class="text-muted">Price : @item.Price.ToString("c")</small><br />
+                                                <small class="text-muted">Quantity : @item.Count</small>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <p class="text-success">@(@item.Price* @item.Count)</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                <li class="list-group-item bg-primary">
+                                    <div class="row container">
+                                        <div class="col-6">
+                                            <h5 class="text-white">TOTAL </h5>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <h5 class="text-white">@Model.TotalPrice.ToString("c")</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            @if (Model.Header.OrderStatus != OrderStatus.Delivered)
+                            {
+                                if (isAdmin)
+                                {
+                                    switch (Model.Header.OrderStatus)
+                                    {
+                                        case OrderStatus.Approved:
+                                            <button asp-action="StartProcessing"
+                                                    asp-route-orderHeaderId="@Model.Header.Id"
+                                                    type="submit" class="btn btn-primary form-control my-1 shadow-sm">
+                                                <i class="bi bi-play-circle me-1"></i> Start Processing
+                                            </button>
+                                            break;
+
+                                        case OrderStatus.Processing:
+                                            <button asp-action="ShipOrder"
+                                                    asp-route-orderHeaderId="@Model.Header.Id"
+                                                    type="submit" class="btn btn-warning form-control my-1 shadow-sm">
+                                                <i class="bi bi-truck me-1"></i> Ship Order
+                                            </button>
+                                            break;
+
+                                        case OrderStatus.Shipped:
+                                            <button asp-action="OrderDelivered"
+                                                    asp-route-orderHeaderId="@Model.Header.Id"
+                                                    type="submit" class="btn btn-success form-control my-1 shadow-sm">
+                                                <i class="bi bi-truck me-1"></i> Order Delivered
+                                            </button>
+                                            break;
+                                    }
+                                }
+
+                                if (isCustomer && Model.Header.OrderStatus == OrderStatus.Shipped)
+                                {
+                                    <div class="alert alert-info mt-2 text-center shadow-sm">
+                                        <i class="bi bi-info-circle me-1"></i> Your order has been shipped and can’t be cancelled.
+                                    </div>
+                                }
+                                else if (Model.Header.OrderStatus == OrderStatus.Cancelled)
+                                {
+                                    <div class="alert alert-danger mt-2 text-center fw-semibold shadow-sm">
+                                        <i class="bi bi-x-circle me-1"></i> This order has been cancelled.
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button asp-action="CancelOrder"
+                                            asp-route-orderHeaderId="@Model.Header.Id"
+                                            type="submit" class="btn btn-danger form-control my-1 shadow-sm">
+                                        <i class="bi bi-x-circle me-1"></i> Cancel Order
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                <div class="alert alert-success mt-2 text-center fw-semibold shadow-sm">
+                                    <i class="bi bi-x-circle me-1"></i> This order has been Delivered Successfully.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

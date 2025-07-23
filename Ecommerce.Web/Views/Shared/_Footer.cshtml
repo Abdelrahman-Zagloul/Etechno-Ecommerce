@@ -1,0 +1,102 @@
+﻿<footer class="bg-dark text-light py-5 w-100 border-top shadow-sm mt-5" aria-label="Footer">
+    <div class="container">
+        <div class="row gy-4 text-center text-md-start justify-content-between">
+
+            <div class="col-md-4">
+                <h5 class="text-info fw-bold mb-3">ETechno</h5>
+                <p class="text-muted">Your one-stop shop for cutting-edge electronics and gadgets. Discover innovation with us.</p>
+            </div>
+
+            <div class="col-md-3">
+                <h6 class="text-warning fw-semibold mb-3">Quick Links</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="footer-link">About Us</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Privacy Policy</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Terms & Conditions</a></li>
+                    <li><a href="#" class="footer-link">Support</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h6 class="text-warning fw-semibold mb-3">Get in Touch</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="bi bi-envelope me-2"></i>
+                        <a href="mailto:abdelrahman.zagloul.dev@gmail.com" class="footer-link">
+                            abdelrahman.zagloul.dev@gmail.com
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-linkedin me-2"></i>
+                        <a href="https://www.linkedin.com/in/abdelrahman-zagloul/" target="_blank" class="footer-link">
+                            Abdelrahman Zagloul
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-github me-2"></i>
+                        <a href="https://github.com/Abdelrahman-Zagloul" target="_blank" class="footer-link">
+                            Abdelrahman-Zagloul
+                        </a>
+                    </li>
+                    <li>
+                        <i class="bi bi-phone me-2"></i>
+                        <a href="tel:+201285168885" class="footer-link">
+                            +20 128 516 8885
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <hr class="border-light my-4">
+
+        <div class="text-center">
+            <p class="mb-0 small">
+                &copy; <span id="current-year"></span> <strong class="text-info">ETechno</strong>.
+                Crafted with <i class="bi bi-heart-fill text-danger"></i> by
+                <strong class="text-info">Abdelrahman Zagloul</strong>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer-link {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .footer-link:hover {
+            color: #0dcaf0;
+            text-decoration: underline;
+        }
+
+   @@media (max-width: 576px) {
+        .footer .text-center
+
+    {
+        text-align: center !important;
+    }
+
+    .footer .col-md {
+        margin-bottom: 2rem;
+    }
+
+    .footer .input-group {
+        flex-direction: column;
+    }
+
+        .footer .input-group input,
+        .footer .input-group button {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+    }
+</style>
+
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>

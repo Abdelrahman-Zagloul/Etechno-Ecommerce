@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecommerce</title>
+    <link rel="icon" type="image/x-icon" href="~/images.jpeg" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <partial name="_NavPartialView" />
+    </header>
+
+    <main role="main" class="flex-fill container">
+        <partial name="_ToastrNotification" />
+        @RenderBody()
+        <button onclick="scrollToTop()" id="scrollTopBtn" class="btn btn-primary position-fixed rounded-circle shadow"
+                style="bottom: 30px; right: 30px; display: none; z-index: 9999; width: 45px; height: 45px;">
+            ↑
+        </button>
+
+    </main>
+    <partial name="_footer" />
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/5mfkg3cyl9k304s7w7bc2y2abhuqjh117wujfmjde1czwx49/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

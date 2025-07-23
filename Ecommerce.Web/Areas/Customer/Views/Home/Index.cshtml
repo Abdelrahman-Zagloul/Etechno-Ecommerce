@@ -1,0 +1,78 @@
+﻿@model HomePageViewModel
+
+@{
+    var currentCategory = Context.Request.Query["CategoryName"].ToString();
+}
+
+<link href="~/css/homepage.css" rel="stylesheet" asp-append-version="true" />
+
+<div class="container">
+    <div class="filter-bar">
+        <a asp-action="Index" asp-controller="Home" asp-area="Customer"
+           class="filter-btn @(string.IsNullOrEmpty(currentCategory) ? "active" : "")"
+           aria-current="@(string.IsNullOrEmpty(currentCategory) ? "page" : null)">
+            <i class="bi bi-grid-fill me-1"></i> All
+        </a>
+
+        @foreach (var category in Model.AllCategories)
+        {
+            var isActive = string.Equals(category.CategoryName?.ToLower(), currentCategory?.ToLower(), StringComparison.OrdinalIgnoreCase);
+            <a asp-action="Index" asp-controller="Home" asp-area="Customer" asp-route-CategoryName="@category.CategoryName"
+               class="filter-btn @(isActive ? "active" : "")"
+               aria-current="@(isActive ? "page" : null)">
+                @category.CategoryName
+            </a>
+        }
+    </div>
+
+    <div class="row g-3">
+        @if (Model.Products.Any())
+        {
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                    <div class="card product-card shadow-sm">
+                        <div class="position-relative">
+                            <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "https://placehold.co/400x300/png" : Url.Content("~/images/products/" + product.ImageUrl))"
+                                 class="product-image"
+                                 alt="@product.Name" />
+
+                            @if (product.ListPrice > product.Price100)
+                            {
+                                <span class="badge-discount">
+                                    Save @((product.ListPrice - product.Price100).ToString("c"))
+                                </span>
+                            }
+
+                            <div class="add-to-cart-overlay">
+                                <a asp-controller="Home" asp-action="AddToCart" asp-area="Customer" asp-route-productId="@product.Id" asp-route-count="1" class="add-to-cart-btn">
+                                    <i class="bi bi-cart-plus-fill"></i> Add
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="card-body">
+                            <h5 class="product-title">@product.Name</h5>
+                            <p class="product-author">by <strong>@product.Author</strong></p>
+                            <div class="product-pricing">
+                                <p class="list-price">@product.ListPrice.ToString("c")</p>
+                                <p class="sale-price">@product.Price100.ToString("c")</p>
+                            </div>
+
+                            <a asp-action="Details" asp-route-productId="@product.Id" class="view-details-btn w-100">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 no-products">
+                <h4>No products found in this category.</h4>
+            </div>
+        }
+    </div>
+</div>

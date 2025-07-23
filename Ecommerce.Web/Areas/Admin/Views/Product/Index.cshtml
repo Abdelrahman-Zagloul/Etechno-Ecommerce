@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Product List";
+}
+
+<div class="container mt-5  mb-5">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h2 class="fw-bold text-primary">
+                <i class="bi bi-people-fill me-2"></i> Product Management
+            </h2>
+            <hr class="w-25 mx-auto border-primary">
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex align-items-center">
+            <a asp-area="Admin" asp-controller="User" asp-action="Dashboard" class="btn btn-outline-secondary shadow-sm">
+                <i class="bi bi-arrow-left-circle me-1"></i> Back To Dashboard
+            </a>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-area="Admin" asp-controller="Product" asp-action="Add" class="btn btn-success shadow-sm">
+                <i class="bi bi-person-plus-fill me-1"></i> Add New Product
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm rounded-4 border-0">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table table-hover table-striped align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Author</th>
+                            <th>ISBN</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/product.js"></script>
+}

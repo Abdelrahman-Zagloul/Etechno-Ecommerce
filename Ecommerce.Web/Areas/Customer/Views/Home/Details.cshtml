@@ -1,0 +1,87 @@
+﻿@model Product
+
+<form method="post">
+    <div class="card shadow border-0 rounded-4 mt-4">
+        <div class="card-header bg-secondary bg-gradient text-light py-4 rounded-top-4">
+            <div class="text-center">
+                <h2 class="text-white text-uppercase fw-bold">@Model.Name</h2>
+                <p class="text-white-50 mb-0 fs-6">by @Model.Author</p>
+            </div>
+        </div>
+
+        <div class="card-body px-4">
+            <div class="row mb-4">
+                <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
+                    @if (string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="https://placehold.co/400x500" class="img-fluid rounded shadow-sm" alt="Product Image" />
+                    }
+                    else
+                    {
+                        <img src="~/images/products/@Model.ImageUrl" class="img-fluid rounded shadow-sm" alt="@Model.Name" />
+                    }
+                </div>
+
+                <div class="col-12 col-lg-7">
+                    <div class="mb-3">
+                        <span class="badge bg-primary bg-opacity-75 fs-6">@Model.Category?.CategoryName</span>
+                    </div>
+
+                    <h6 class="text-secondary">ISBN: <span class="fw-semibold">@Model.ISBN</span></h6>
+
+                    <h6 class="text-secondary">List Price:
+                        <span class="text-decoration-line-through ms-2">@Model.ListPrice.ToString("C")</span>
+                    </h6>
+
+                    <div class="table-responsive my-3">
+                        <table class="table table-bordered text-center align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="text-uppercase small">Quantity</th>
+                                    <th class="text-uppercase small">1-50</th>
+                                    <th class="text-uppercase small">50+</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-semibold text-secondary">Price</td>
+                                    <td class="text-success fw-bold">@Model.Price50.ToString("C")</td>
+                                    <td class="text-success fw-bold">@Model.Price100.ToString("C")</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="text-muted lh-base">@Html.Raw(Model.Description)</p>
+
+                    <div class="row my-4">
+                        <div class="col-md-5">
+                            <label for="Count" class="form-label fw-semibold">Select Quantity</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white fw-semibold border-0">
+                                    Count
+                                </span>
+                                <input type="number" value="1" min="1" class="form-control text-end" name="Count" id="Count" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        
+                        <div class="col-12 col-md-6 mt-3 mt-md-0">
+                            <a asp-action="Index" class="btn btn-outline-secondary w-100 py-2 text-uppercase fw-semibold">
+                                <i class="bi bi-arrow-left me-2"></i> Back to Home
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <button type="submit" asp-action="AddToCart" asp-route-ProductId="@Model.Id"
+                                    class="btn btn-success bg-gradient w-100 py-2 fw-bold text-uppercase shadow-sm">
+                                <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Order List";
+    var currentOrderStatus = Context.Request.Query["orderStatus"].ToString();
+    var currentPaymentStatus = Context.Request.Query["paymentStatus"].ToString();
+    bool isNullQuery = string.IsNullOrEmpty(currentOrderStatus) && string.IsNullOrEmpty(currentPaymentStatus);
+
+}
+
+<div class="container py-5">
+    <div class="row mb-4 text-center">
+        <div class="col">
+            <h2 class="fw-bold text-primary">
+                <i class="bi bi-basket2-fill me-2"></i> Order Management
+            </h2>
+            <hr class="w-25 mx-auto border-primary border-2 opacity-75">
+        </div>
+    </div>
+
+    
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+        <div class="btn-group" role="group">
+            <a asp-action="Index" asp-route-paymentStatus="Pending" class="btn btn-outline-secondary
+                @(currentPaymentStatus == "Pending" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-check-circle me-1"></i> Payment: Pending
+            </a>
+            <a asp-action="Index" asp-route-paymentStatus="Approved" class="btn btn-outline-success
+                @(currentPaymentStatus == "Approved" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-check-circle me-1"></i> Payment: Approved
+            </a>
+            <a asp-action="Index" asp-route-paymentStatus="Refunded"
+               class="btn btn-outline-info @(currentPaymentStatus == "Refunded" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-arrow-counterclockwise me-1"></i> Payment: Refunded
+            </a>
+            <a asp-action="Index" asp-route-paymentStatus="Rejected"
+               class="btn btn-outline-danger @(currentPaymentStatus == "Rejected" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-x-circle me-1"></i> Payment: Rejected
+            </a>
+        </div>
+
+        <div>
+            <a asp-action="Index"
+               class="btn btn-outline-secondary @(isNullQuery ? "active fw-bold text-white" : "")">
+                <i class="bi bi-funnel-fill me-1"></i> Show All
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a asp-action="Index" asp-route-orderStatus="Pending"
+               class="btn btn-outline-secondary @(currentOrderStatus == "Pending" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-check2-square me-1"></i> Order: Pending
+            </a>
+            <a asp-action="Index" asp-route-orderStatus="Approved"
+               class="btn btn-outline-primary @(currentOrderStatus == "Approved" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-check2-square me-1"></i> Order: Approved
+            </a>
+
+            <a asp-action="Index" asp-route-orderStatus="Shipped"
+               class="btn btn-outline-warning @(currentOrderStatus == "Shipped" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-truck me-1"></i> Order: Shipped
+            </a>
+
+            <a asp-action="Index" asp-route-orderStatus="Delivered"
+               class="btn btn-outline-success @(currentOrderStatus == "Delivered" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-box-seam me-1"></i> Order: Delivered
+            </a>
+
+            <a asp-action="Index" asp-route-orderStatus="Cancelled"
+               class="btn btn-outline-danger @(currentOrderStatus == "Cancelled" ? "active fw-bold text-white" : "")">
+                <i class="bi bi-x-octagon me-1"></i> Order: Cancelled
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table table-hover table-striped table-borderless align-middle mb-0 mx-auto">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 20%;">Name</th>
+                            <th style="width: 20%;">Phone</th>
+                            <th style="width: 15%;">Payment Status</th>
+                            <th style="width: 15%;">Order Status</th>
+                            <th style="width: 10%;">Total</th>
+                            <th style="width: 15%;">Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="~/js/order.js" asp-append-version="true"></script>
+}

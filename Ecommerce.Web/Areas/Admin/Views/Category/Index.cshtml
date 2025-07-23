@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Category List";
+}
+<style>
+    #myTable {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
+    #myTable {
+        font-size: 1.4rem;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row mb-4 text-center">
+        <div class="col">
+            <h2 class="fw-bold text-primary">
+                <i class="bi bi-tags-fill me-2"></i> Category Management
+            </h2>
+            <hr class="w-25 mx-auto border-primary">
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <a asp-area="Admin" asp-controller="User" asp-action="Dashboard" class="btn btn-outline-secondary shadow-sm">
+                <i class="bi bi-arrow-left-circle me-1"></i> Back To Dashboard
+            </a>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-area="Admin" asp-controller="Category" asp-action="Add" class="btn btn-success shadow-sm">
+                <i class="bi bi-plus-circle me-1"></i> Add Category
+            </a>
+        </div>
+    </div>
+
+    <table id="myTable" class="table table-bordered table-striped table-hover table-sm w-100">
+
+        <thead class="table-dark text-center">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/category.js" asp-append-version="true"></script>
+}
